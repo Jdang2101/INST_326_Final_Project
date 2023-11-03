@@ -147,7 +147,7 @@ def parse_args(args_list):
     #In this case, we have a required positional argument.
     #Followed by an optional keyword argument which contains a default value.
     
-    parser.add_argument('--api', '-a', type=bool, default=False, help='Enable the API')  
+    parser.add_argument('--gui', '-g', type=bool, default=False, help='Enable the GUI')  
     
     args = parser.parse_args(args_list) #We need to parse the list of command line arguments using this object.
 
@@ -166,4 +166,4 @@ if __name__ == "__main__":
     #Note that you do not need a main function, but you might find it helpfull.
     #You do want to make sure to have minimal code under the 'if __name__ == "__main__":' statement.
     
-    main(arguments.api)
+    main(arguments.gui)
