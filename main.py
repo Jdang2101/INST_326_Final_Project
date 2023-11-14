@@ -15,6 +15,7 @@ class Song:
         self.artist = artist
         self.genre = genre
 
+
 class Playlist:
     """ Class Playlist:
     Properties:
@@ -74,11 +75,16 @@ class Playlist:
     
     def viewListOfPlaylists(self):
         # Display the list of created playlists.
-        pass
+        for playlist in Playlist.playlists_database:
+            print(playlist.playlist_title)
+        
     
     def selectPlaylist(self, playlist_index):
         # Select a playlist to perform actions on.
-        pass
+        selected_playlist = input("Please enter the name of the playlist: ")
+        while selected_playlist not in [playlist.playlist_title for playlist in Playlist.playlists_database]:
+            print("That playlist does not exist.")
+            selected_playlist = input("Please enter the name of the playlist: ")
         
     def viewSongsInPlaylist(self, playlist_title):
         # View the list of songs in a selected playlist along with their details.
