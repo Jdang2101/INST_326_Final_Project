@@ -64,8 +64,8 @@ class Playlist:
     def createPlaylist(self, playlist_title):
         # Create a new playlist with a given title.
         # The new playlist is appended to the global playlists database.
-        creator = input("What is your name? ")
-        playlist_title = input("What is the playlist title? ")
+        creator = input("What is your name? ").upper()
+        playlist_title = input("What is the playlist title? ").upper()
         new_playlist = Playlist(creator, playlist_title)
         Playlist.playlists_database.append(new_playlist)
         
@@ -81,10 +81,10 @@ class Playlist:
     
     def selectPlaylist(self, playlist_index):
         # Select a playlist to perform actions on.
-        selected_playlist = input("Please enter the name of the playlist: ")
+        selected_playlist = input("Please enter the name of the playlist: ").upper()
         while selected_playlist not in [playlist.playlist_title for playlist in Playlist.playlists_database]:
             print("That playlist does not exist.")
-            selected_playlist = input("Please enter the name of the playlist: ")
+            selected_playlist = input("Please enter the name of the playlist: ").upper()
         
     def viewSongsInPlaylist(self, playlist_title):
         # View the list of songs in a selected playlist along with their details.
@@ -105,6 +105,8 @@ class Playlist:
     def searchForPlaylist(self, playlist_title):
         # Search for a specific playlist by its title.
         pass
+    
+    
 
 
 class Recommender:
