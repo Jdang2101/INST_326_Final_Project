@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Index {% endblock %}</h1>
-    <h1>Hello World!</h1>
-    <h2>Welcome to Play Maker!</h2>
+    <div class="container my-5">
+        <div class="p-5 text-center rounded-3">
+            <h1 class="text-body-emphasis">Welcome to Play Maker!</h1>
+            <p class="col-lg-8 mx-auto fs-5 text-muted">Create, explore, and share playlist of your favorite songs and genres.</p>
+            <form role="search" action="/search">
+                <div class="d-inline-flex gap-2 mb-5">
+                    <input type="text" class="form-control rounded-pill" placeholder="Search for a playlist" name="q">
+                    <button type="submit" class="btn btn-primary btn-lg px-4 rounded-pill">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
