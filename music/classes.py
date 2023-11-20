@@ -83,11 +83,28 @@ class Playlist:
         
     def viewSongsInPlaylist(self, playlist_title):
         # View the list of songs in a selected playlist along with their details.
-        pass
+        for playlist in Playlist.playlists_database:
+            if playlist.playlist_title == selected_playlist:
+                print(f"Songs in playlist '{playlist.playlist_title}':")
+                for song in playlist.songs:
+                    print(f"Title: {song['title']}")
+                    print(f"Artist: {song['artist']}")
+                    print(f"Genre: {song['genre']}")
+                    print("--------------------")
+                break
 
     def addSongToPlaylist(self, title, artist, genre):
         # Add a song to a selected playlist with the given details.
-        pass
+        for playlist in Playlist.playlists_database:
+            if playlist.playlist_title == selected_playlist:
+                song = {
+                    'title': title,
+                    'artist': artist,
+                    'genre': genre
+                }
+                playlist.songs.append(song)
+                print(f"The Song '{title}' by {artist} has been added to playlist '{playlist.playlist_title}'.")
+                
 
     def deleteSongFromPlaylist(self, title, artist):
         # Delete a song from the selected playlist.
