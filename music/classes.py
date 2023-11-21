@@ -115,9 +115,9 @@ class Playlist:
                     if song.title == title.upper() and song.artist == artist.upper():
                         playlist.songs.remove(song)
                         print(f"The song '{title}' by {artist} has been deleted from the playlist '{playlist.playlist_title}'.")
+                        break
                     else:
-                        print(f"The song '{title}' by {artist} was not found in the the playlist '{playlist.playlist_title}'.")
-                    break
+                        continue
             else:
                 print(f"{playlist.playlist_title}The playlist you entered was not found")
 
@@ -128,10 +128,15 @@ class Playlist:
         song = Song(title.upper(), artist.upper(), genre.upper())
 
         Song.songs_database.append(song)
+
     def deleteSongFromDatabase(self, title, artist):
         for song in Song.songs_database:
-            if song.title == title:
+            if song.title == title.upper() and song.artist == artist.upper():
                 Song.songs_database.remove(song)
+                break
+            else:
+                continue
+
 
 
     def searchForPlaylist(self, playlist_title):
