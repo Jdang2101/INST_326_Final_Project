@@ -5,6 +5,8 @@ class Song:
         - artist
         - genre
     """
+    songs_database = []
+
     def __init__(self, title, artist, genre):
         self.title = title
         self.artist = artist
@@ -49,7 +51,7 @@ class Playlist:
             Delete a song from the selected playlist.
     """
     playlists_database = []
-    songs_database = []
+    
 
     def __init__(self, creator, playlist_title):
         # Initialize the playlist with a creator and a title.
@@ -75,16 +77,13 @@ class Playlist:
             print(playlist.playlist_title)
         
     
-    def selectPlaylist(self, playlist_index):
+    def selectPlaylist(self, selected_playlist):
         # Select a playlist to perform actions on.
-        selected_playlist = input("Please enter the name of the playlist: ").upper()
         while selected_playlist not in [playlist.playlist_title for playlist in Playlist.playlists_database]:
             print("That playlist does not exist.")
-            selected_playlist = input("Please enter the name of the playlist: ").upper()
         
-    def viewSongsInPlaylist(self, playlist_title):
+    def viewSongsInPlaylist(self, selected_playlist):
         # View the list of songs in a selected playlist along with their details.
-        selected_playlist = input("Please enter the name of the playlist: ").upper()
         for playlist in Playlist.playlists_database:
             if playlist.playlist_title == selected_playlist:
                 print(f"Songs in playlist '{playlist.playlist_title}':")
@@ -95,9 +94,8 @@ class Playlist:
                     print("--------------------")
                 break
 
-    def addSongToPlaylist(self, title, artist, genre):
+    def addSongToPlaylist(self, title, artist, genre, selected_playlist):
         # Add a song to a selected playlist with the given details.
-        selected_playlist = input("Please enter the name of the playlist: ").upper()
         for playlist in Playlist.playlists_database:
             if playlist.playlist_title == selected_playlist:
                 song = {
@@ -109,13 +107,12 @@ class Playlist:
                 print(f"The Song '{title}' by {artist} has been added to playlist '{playlist.playlist_title}'.")
                 
 
-    def deleteSongFromPlaylist(self, title, artist):
+    def deleteSongFromPlaylist(self, title, artist, selected_playlist):
         # Delete a song from the selected playlist.
-        selected_playlist = input("Please enter the name of the playlist: ").upper()
         for playlist in Playlist.playlists_database:
             if playlist.playlist_title == selected_playlist:
                 for song in playlist.songs:
-                    if song['title'] == title.upper() and song['artist'] == artist.upper():
+                    if song.title == title.upper() and song.artist == artist.upper():
                         playlist.songs.remove(song)
                         print(f"The song '{title}' by {artist} has been deleted from the playlist '{playlist.playlist_title}'.")
                     else:
@@ -125,18 +122,16 @@ class Playlist:
                 print(f"{playlist.playlist_title}The playlist you entered was not found")
 
 
-# Should we be making the functions like this one below or the one above? I think the one below works best if we are asking the user for all the inputs and using those inputs instead of the parameters that we are passing in to create songs or to add songs to certain playlists.
-
-
-    def addSongToDatabase(self):
+    def addSongToDatabase(self, title, artist, genre):
         # Add a song to the global database.
-        added_song_title = input("Please enter the title of a song you would like to add")
-        added_song_artist = input("Please enter the name of the artists from the song you just entered.")
-        added_song_genre = input("Please enter the genre associated with the song you entered.")
-        song_to_be_added = Song(added_song_title.upper(), added_song_artist.upper(), added_song_genre.upper())
 
+        song = Song(title.upper(), artist.upper(), genre.upper())
 
-        Playlist.songs_database.append(song_to_be_added)
+        Song.songs_database.append(song)
+    def deleteSongFromDatabase(self, title, artist):
+        for song in Song.songs_database:
+            if song.title == title:
+                Song.songs_database.remove(song)
 
 
     def searchForPlaylist(self, playlist_title):
