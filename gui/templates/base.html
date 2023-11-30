@@ -18,11 +18,28 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/playlists">Playlists</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" href="/playlists" data-bs-toggle="dropdown" aria-expanded="false">
+                  Playlists
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="/playlists">Browse</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/playlists/create">Create</a>
+                  </li>
+                </ul>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/genres">Genres</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" href="/genres" data-bs-toggle="dropdown" aria-expanded="false">
+                  Genres
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="/genres">Browse</a>
+                  </li>
+                </ul>
               </li>
             </ul>
             <form class="d-flex" role="search" action="/search">
@@ -36,6 +53,7 @@
     <div class="content">
         {% block content %} {% endblock %}
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

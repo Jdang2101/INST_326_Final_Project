@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+    <div class="container text-center">
+        <div class="p-5 text-center rounded-3">
+            <h1 class="text-body-emphasis">Browse Playlists</h1>
+            <p>Title: {{playlist.playlist_title}}</p>
+        </div>
+    </div>
+{% endblock %}

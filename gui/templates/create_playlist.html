@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+    <div class="container my-5">
+        <div class="p-5 text-center rounded-3">
+            <h1 class="text-body-emphasis">Create a Playlist</h1>
+            <p class="col-lg-8 mx-auto fs-5 text-muted">Create, explore, and share playlist of your favorite songs.</p>
+            <form method="post" action="{{ url_for('playlists_create_page') }}">
+                <div class="input-group">
+                    <span class="input-group-text" for="author">Author:</span>
+                    <input type="text" class="form-control" id="author" name="author" required>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text" for="title">Title:</span>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+        
+                <div id="song_fields">
+                    <!-- Song fields will be dynamically added here using JavaScript -->
+                </div>
+        
+                <button type="button" class="btn btn-primary" onclick="addSong()">Add Song</button>
+                <button type="submit" class="btn btn-success">Create Playlist</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let songs = [];
+    
+        function addSong() {
+            const songFields = document.getElementById('song_fields');
+    
+            const newSongField = `
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Song ${songs.length + 1}</h5>
+                        <div class="input-group">
+                            <span class="input-group-text" for="song_title_${songs.length}">Title:</span>
+                            <input type="text" class="form-control" id="song_title_${songs.length}" name="song_title_${songs.length}" required>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text" for="artist_${songs.length}">Artist:</span>
+                            <input type="text" class="form-control" id="artist_${songs.length}" name="artist_${songs.length}" required>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text" for="genre_${songs.length}">Genre:</span>
+                            <input type="text" class="form-control" id="genre_${songs.length}" name="genre_${songs.length}" required>
+                        </div>
+                    </div>
+                </div>
+            `;
+    
+            songFields.innerHTML += newSongField;
+            songs.push({});
+        }
+    </script>
+{% endblock %}
