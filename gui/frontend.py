@@ -7,7 +7,7 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 # get the parent directory
 parent_dir = os.path.dirname(current_dir)
 
-# import main.py from the parent directory
+# add the parent directory to our path so we can import the classes from music/classes.py
 sys.path.append(parent_dir)
 
 from music.classes import Song, Playlist, Recommender
@@ -24,6 +24,16 @@ def index():
 @app.route("/playlists")
 def playlists_page():
     return render_template("playlists.html", title="Playlists", playlists=Playlist.playlists_database)
+
+# Playlist View Page
+@app.route("/playlists/<playlist_title>")
+def playlist_view_page(playlist_title):
+    # get the playlist from the database
+    for playlist in Playlist.playlists_database:
+            if playlist.playlist_title == playlist_title:
+                return render_template("view_playlist.html", title=playlist.playlist_title, playlist=playlist)
+            else:
+                return render_template("error/404.html", title="404")
 
 # Playlist Creation Page
 @app.route("/playlists/create", methods=["GET", "POST"])
@@ -43,11 +53,7 @@ def playlists_create_page():
                 song_title = request.form[f"song_title_{len(songs)}"]
                 song_artist = request.form[f"artist_{len(songs)}"]
                 song_genre = request.form[f"genre_{len(songs)}"]
-                song = {
-                    'title': song_title.upper(),
-                    'artist': song_artist.upper(),
-                    'genre': song_genre.upper()
-                }
+                song = Song(song_title.upper(), song_artist.upper(), song_genre.upper())
                 songs.append(song)
             except:
                 break
@@ -56,7 +62,7 @@ def playlists_create_page():
         playlist = Playlist(title.upper(), author.upper())
         # add the songs to the playlist
         for song in songs:
-            playlist.addSongToPlaylist(song['title'], song['artist'], song['genre'], playlist)
+            playlist.addSongToPlaylist(song.title, song.artist, song.genre, playlist)
 
         # save the playlist to the database
         Playlist.playlists_database.append(playlist)
@@ -65,9 +71,9 @@ def playlists_create_page():
 
 
 # Genres Page
-@app.route("/genres")
+@app.route("/recommend")
 def genres_page():
-    return render_template("genres.html", title="Genres")
+    return render_template("/recommend.html", title="Recommended Playlists")
 
 # 404 Page
 @app.errorhandler(404)
