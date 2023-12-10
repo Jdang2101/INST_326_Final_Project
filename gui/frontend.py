@@ -62,7 +62,7 @@ def playlists_create_page():
         playlist = Playlist(title.upper(), author.upper())
         # add the songs to the playlist
         for song in songs:
-            playlist.addSongToPlaylist(song.title, song.artist, song.genre, playlist)
+            playlist.songs.append(song)
 
         # save the playlist to the database
         Playlist.playlists_database.append(playlist)
