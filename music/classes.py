@@ -66,28 +66,25 @@ class Playlist:
         playlist_title = input("What is the playlist title? ").upper()
         new_playlist = Playlist(creator, playlist_title)
         Playlist.playlists_database.append(new_playlist)
-        
-    # Should this function have a feature to allow the user to add songs to the playlist right away?
-    # Or should it give it option to add a song on repeat until the user says no more songs?
     
     
     def viewListOfPlaylists(self):
         # Display the list of created playlists.
         for playlist in Playlist.playlists_database:
-            print(playlist.playlist_title)
+            print(Playlist.playlist_title)
         
     
     def selectPlaylist(self, selected_playlist):
         # Select a playlist to perform actions on.
-        while selected_playlist not in [playlist.playlist_title for playlist in Playlist.playlists_database]:
+        while selected_playlist not in [Playlist.playlist_title for playlist in Playlist.playlists_database]:
             print("That playlist does not exist.")
         
     def viewSongsInPlaylist(self, selected_playlist):
         # View the list of songs in a selected playlist along with their details.
         for playlist in Playlist.playlists_database:
-            if playlist.playlist_title == selected_playlist:
-                print(f"Songs in playlist '{playlist.playlist_title}':")
-                for song in playlist.songs:
+            if Playlist.playlist_title == selected_playlist:
+                print(f"Songs in playlist '{Playlist.playlist_title}':")
+                for song in Playlist.songs:
                     print(f"Title: {song['title']}")
                     print(f"Artist: {song['artist']}")
                     print(f"Genre: {song['genre']}")
@@ -97,29 +94,29 @@ class Playlist:
     def addSongToPlaylist(self, title, artist, genre, selected_playlist):
         # Add a song to a selected playlist with the given details.
         for playlist in Playlist.playlists_database:
-            if playlist.playlist_title == selected_playlist:
+            if Playlist.playlist_title == selected_playlist:
                 song = {
                     'title': title.upper(),
                     'artist': artist.upper(),
                     'genre': genre.upper()
                 }
-                playlist.songs.append(song)
+                Playlist.songs.append(song)
                 print(f"The Song '{title}' by {artist} has been added to playlist '{playlist.playlist_title}'.")
                 
 
     def deleteSongFromPlaylist(self, title, artist, selected_playlist):
         # Delete a song from the selected playlist.
         for playlist in Playlist.playlists_database:
-            if playlist.playlist_title == selected_playlist:
-                for song in playlist.songs:
-                    if song.title == title.upper() and song.artist == artist.upper():
-                        playlist.songs.remove(song)
+            if Playlist.playlist_title == selected_playlist:
+                for song in Playlist.songs:
+                    if Song.title == title.upper() and Song.artist == artist.upper():
+                        Playlist.songs.remove(song)
                         print(f"The song '{title}' by {artist} has been deleted from the playlist '{playlist.playlist_title}'.")
                         break
                     else:
                         continue
             else:
-                print(f"{playlist.playlist_title}The playlist you entered was not found")
+                print(f"{Playlist.playlist_title}The playlist you entered was not found")
 
 
     def addSongToDatabase(self, title, artist, genre):
@@ -131,7 +128,7 @@ class Playlist:
 
     def deleteSongFromDatabase(self, title, artist):
         for song in Song.songs_database:
-            if song.title == title.upper() and song.artist == artist.upper():
+            if Song.title == title.upper() and Song.artist == artist.upper():
                 Song.songs_database.remove(song)
                 break
             else:
