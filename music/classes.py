@@ -71,7 +71,7 @@ class Playlist:
     def viewListOfPlaylists(self):
         # Display the list of created playlists.
         for playlist in Playlist.playlists_database:
-            print(Playlist.playlist_title)
+            print(playlist.playlist_title)
         
     
     def selectPlaylist(self, selected_playlist):
@@ -100,21 +100,21 @@ class Playlist:
                     'artist': artist.upper(),
                     'genre': genre.upper()
                 }
-                Playlist.songs.append(song)
-                print(f"The Song '{title.upper()}' by {artist.upper()} has been added to playlist '{Playlist.playlist_title}'.")
+                playlist.songs.append(song)
+                print(f"The Song '{title.upper()}' by {artist.upper()} has been added to playlist '{playlist.playlist_title}'.")
                 
 
     def deleteSongFromPlaylist(self, title, artist, selected_playlist):
         # Delete a song from the selected playlist.
         for playlist in Playlist.playlists_database:
-            if Playlist.playlist_title == selected_playlist.upper():
-                for song in Playlist.songs:
-                    if Song.title == title.upper() and Song.artist == artist.upper():
-                        Playlist.songs.remove(song)
-                        print(f"The song '{title.upper()}' by {artist.upper()} has been deleted from the playlist '{Playlist.playlist_title}'.")
+            if playlist.playlist_title == selected_playlist.upper():
+                for song in playlist.songs:
+                    if song.title == title.upper() and song.artist == artist.upper():
+                        playlist.songs.remove(song)
+                        print(f"The song '{title.upper()}' by {artist.upper()} has been deleted from the playlist '{playlist.playlist_title}'.")
                         break
                     else:
-                        if song == Playlist.songs[-1]:
+                        if song == playlist.songs[-1]:
                             print(f"The song {title.upper()} was not found in the playlist {selected_playlist.upper()} database.")
                         else:
                             continue
@@ -143,7 +143,7 @@ class Playlist:
     def searchForPlaylist(self, playlist_title):
         # Search for a specific playlist by its title.
         for playlist in Playlist.playlists_database:
-            if Playlist.playlist_title == playlist_title.upper():
+            if playlist.playlist_title == playlist_title.upper():
                 print(f"Playlist {playlist_title.upper()} was found in the playlist database.")
             else:
                 if playlist == Playlist.playlists_database[-1]:
