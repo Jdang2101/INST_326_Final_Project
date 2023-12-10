@@ -58,6 +58,8 @@ class Playlist:
         self.creator = creator
         self.playlist_title = playlist_title
         self.songs = []
+        # Add the playlist to the global playlists database.
+        Playlist.playlists_database.append(self)
 
     def createPlaylist(self, playlist_title):
         # Create a new playlist with a given title.
