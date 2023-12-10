@@ -6,5 +6,20 @@
             <h1 class="text-body-emphasis">Browse Playlists</h1>
             <p>Title: {{playlist.playlist_title}}</p>
         </div>
+        <div class="row">
+        {% for song in playlist.songs %}
+                <div class="col-md-4">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">{{ song.title }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Artist: {{ song.artist }}</p>
+                            <p class="card-text">Genre: {{ song.genre }}</p>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
     </div>
 {% endblock %}

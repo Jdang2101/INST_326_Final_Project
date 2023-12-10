@@ -30,7 +30,7 @@ def playlists_page():
 def playlist_view_page(playlist_title):
     # get the playlist from the database
     for playlist in Playlist.playlists_database:
-            if playlist.playlist_title == playlist_title:
+            if str(playlist.playlist_title) == playlist_title:
                 return render_template("view_playlist.html", title=playlist.playlist_title, playlist=playlist)
             else:
                 return render_template("error/404.html", title="404")
@@ -62,7 +62,7 @@ def playlists_create_page():
         playlist = Playlist(title.upper(), author.upper())
         # add the songs to the playlist
         for song in songs:
-            playlist.addSongToPlaylist(song.title, song.artist, song.genre, playlist)
+            playlist.songs.append(song)
 
         # save the playlist to the database
         Playlist.playlists_database.append(playlist)
