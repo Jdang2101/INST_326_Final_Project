@@ -143,7 +143,7 @@ class Playlist:
     def searchForPlaylist(self, playlist_title):
         # Search for a specific playlist by its title.
         for playlist in Playlist.playlists_database:
-            if playlist.playlist_title == playlist_title.upper():
+            if Playlist.playlist_title == playlist_title.upper():
                 print(f"Playlist {playlist_title.upper()} was found in the playlist database.")
             else:
                 if playlist == Playlist.playlists_database[-1]:
