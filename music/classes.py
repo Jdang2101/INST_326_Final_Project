@@ -100,21 +100,21 @@ class Playlist:
                     'artist': artist.upper(),
                     'genre': genre.upper()
                 }
-                playlist.songs.append(song)
-                print(f"The Song '{title.upper()}' by {artist.upper()} has been added to playlist '{playlist.playlist_title}'.")
+                Playlist.songs.append(song)
+                print(f"The Song '{title.upper()}' by {artist.upper()} has been added to playlist '{Playlist.playlist_title}'.")
                 
 
     def deleteSongFromPlaylist(self, title, artist, selected_playlist):
         # Delete a song from the selected playlist.
         for playlist in Playlist.playlists_database:
-            if playlist.playlist_title == selected_playlist.upper():
-                for song in playlist.songs:
-                    if song.title == title.upper() and song.artist == artist.upper():
-                        playlist.songs.remove(song)
-                        print(f"The song '{title.upper()}' by {artist.upper()} has been deleted from the playlist '{playlist.playlist_title}'.")
+            if Playlist.playlist_title == selected_playlist.upper():
+                for song in Playlist.songs:
+                    if Song.title == title.upper() and Song.artist == artist.upper():
+                        Playlist.songs.remove(song)
+                        print(f"The song '{title.upper()}' by {artist.upper()} has been deleted from the playlist '{Playlist.playlist_title}'.")
                         break
                     else:
-                        if song == playlist.songs[-1]:
+                        if song == Playlist.songs[-1]:
                             print(f"The song {title.upper()} was not found in the playlist {selected_playlist.upper()} database.")
                         else:
                             continue
