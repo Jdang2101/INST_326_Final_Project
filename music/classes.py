@@ -53,105 +53,183 @@ class Playlist:
     playlists_database = []
     
 
-    def __init__(self, creator, playlist_title):
-        # Initialize the playlist with a creator and a title.
-        self.creator = creator
-        self.playlist_title = playlist_title
-        self.songs = []
-        # Add the playlist to the global playlists database.
-        Playlist.playlists_database.append(self)
+    class Playlist:
+        def __init__(self, creator, playlist_title):
+            """
+            Initialize a Playlist object.
+
+            Args:
+                creator (str): The creator of the playlist.
+                playlist_title (str): The title of the playlist.
+            """
+            
+            self.creator = creator
+            self.playlist_title = playlist_title
+            
+            # The songs property is a list of dictionaries containing song details.
+            self.songs = []
+            # Append the playlist to the global playlists database.
+            Playlist.playlists_database.append(self)
 
     def createPlaylist(self, playlist_title):
-        # Create a new playlist with a given title.
-        # The new playlist is appended to the global playlists database.
+        """
+        Create a new playlist with a given title along with a creator name.
+
+        Args:
+            playlist_title (str): The title of the new playlist.
+
+
+        """
+        # Get the input of the name of the creator of the playlist.
         creator = input("What is your name? ").upper()
+        # 
         playlist_title = input("What is the playlist title? ").upper()
         new_playlist = Playlist(creator, playlist_title)
         Playlist.playlists_database.append(new_playlist)
     
     
     def viewListOfPlaylists(self):
-        # Display the list of created playlists.
+        """
+        Display the list of created playlists.
+        """
         for playlist in Playlist.playlists_database:
             print(playlist.playlist_title)
         
     
     def selectPlaylist(self, selected_playlist):
-        # Select a playlist to perform actions on.
-        while selected_playlist not in [Playlist.playlist_title for playlist in Playlist.playlists_database]:
-            print("That playlist does not exist.")
+            """
+            Selects a playlist to perform actions on.
+
+            Parameters:
+            selected_playlist (str): The title of the playlist to select.
+
+            Returns:
+            None
+            """
+            while selected_playlist not in [Playlist.playlist_title for playlist in Playlist.playlists_database]:
+                print("That playlist does not exist.")
         
     def viewSongsInPlaylist(self, selected_playlist):
-        # View the list of songs in a selected playlist along with their details.
-        for playlist in Playlist.playlists_database:
-            if Playlist.playlist_title == selected_playlist:
-                print(f"Songs in playlist '{Playlist.playlist_title}':")
-                for song in Playlist.songs:
-                    print(f"Title: {song['title']}")
-                    print(f"Artist: {song['artist']}")
-                    print(f"Genre: {song['genre']}")
-                    print("--------------------")
-                break
+            """
+            View the list of songs in a selected playlist along with their details.
+
+            Parameters:
+            - selected_playlist (str): The title of the playlist to view.
+
+            Returns:
+            None
+            """
+            for playlist in Playlist.playlists_database:
+                if Playlist.playlist_title == selected_playlist:
+                    print(f"Songs in playlist '{Playlist.playlist_title}':")
+                    for song in Playlist.songs:
+                        print(f"Title: {song['title']}")
+                        print(f"Artist: {song['artist']}")
+                        print(f"Genre: {song['genre']}")
+                        print("--------------------")
+                    break
 
     def addSongToPlaylist(self, title, artist, genre, selected_playlist):
-        # Add a song to a selected playlist with the given details.
-        for playlist in Playlist.playlists_database:
-            if Playlist.playlist_title == selected_playlist:
-                song = {
-                    'title': title.upper(),
-                    'artist': artist.upper(),
-                    'genre': genre.upper()
-                }
-                playlist.songs.append(song)
-                print(f"The Song '{title.upper()}' by {artist.upper()} has been added to playlist '{playlist.playlist_title}'.")
+            """
+            Add a song to a selected playlist with the given details.
+
+            Parameters:
+            - title (str): The title of the song.
+            - artist (str): The artist of the song.
+            - genre (str): The genre of the song.
+            - selected_playlist (str): The title of the playlist to add the song to.
+
+            Returns:
+            None
+            """
+            for playlist in Playlist.playlists_database:
+                if Playlist.playlist_title == selected_playlist:
+                    song = {
+                        'title': title.upper(),
+                        'artist': artist.upper(),
+                        'genre': genre.upper()
+                    }
+                    playlist.songs.append(song)
+                    print(f"The Song '{title.upper()}' by {artist.upper()} has been added to playlist '{playlist.playlist_title}'.")
                 
 
     def deleteSongFromPlaylist(self, title, artist, selected_playlist):
-        # Delete a song from the selected playlist.
-        for playlist in Playlist.playlists_database:
-            if playlist.playlist_title == selected_playlist.upper():
-                for song in playlist.songs:
-                    if song.title == title.upper() and song.artist == artist.upper():
-                        playlist.songs.remove(song)
-                        print(f"The song '{title.upper()}' by {artist.upper()} has been deleted from the playlist '{playlist.playlist_title}'.")
-                        break
-                    else:
-                        if song == playlist.songs[-1]:
-                            print(f"The song {title.upper()} was not found in the playlist {selected_playlist.upper()} database.")
+            """
+            Delete a song from the selected playlist.
+
+            Parameters:
+            - title (str): The title of the song to be deleted.
+            - artist (str): The artist of the song to be deleted.
+            - selected_playlist (str): The title of the playlist from which the song will be deleted.
+
+            Returns:
+            None
+            """
+            for playlist in Playlist.playlists_database:
+                if playlist.playlist_title == selected_playlist.upper():
+                    for song in playlist.songs:
+                        if song.title == title.upper() and song.artist == artist.upper():
+                            playlist.songs.remove(song)
+                            print(f"The song '{title.upper()}' by {artist.upper()} has been deleted from the playlist '{playlist.playlist_title}'.")
+                            break
                         else:
-                            continue
-            else:
-                if playlist == Playlist.playlists_database[-1]:
-                    print(f"Playlist {selected_playlist.upper()} was not found in the playlist database.")
+                            if song == playlist.songs[-1]:
+                                print(f"The song {title.upper()} was not found in the playlist {selected_playlist.upper()} database.")
+                            else:
+                                continue
                 else:
-                    continue
+                    if playlist == Playlist.playlists_database[-1]:
+                        print(f"Playlist {selected_playlist.upper()} was not found in the playlist database.")
+                    else:
+                        continue
 
 
     def addSongToDatabase(self, title, artist, genre):
-        # Add a song to the global database.
-        
+        """
+        Add a song to the global database.
+
+        Parameters:
+        title (str): The title of the song.
+        artist (str): The artist of the song.
+        genre (str): The genre of the song.
+        """
         song = Song(title.upper(), artist.upper(), genre.upper())
 
         Song.songs_database.append(song)
 
     def deleteSongFromDatabase(self, title, artist):
-        for song in Song.songs_database:
-            if Song.title == title.upper() and Song.artist == artist.upper():
-                Song.songs_database.remove(song)
-                break
-            else:
-                continue
+            """
+            Deletes a song from the database based on the given title and artist.
+
+            Parameters:
+            - title (str): The title of the song to be deleted.
+            - artist (str): The artist of the song to be deleted.
+            """
+            for song in Song.songs_database:
+                if Song.title == title.upper() and Song.artist == artist.upper():
+                    Song.songs_database.remove(song)
+                    break
+                else:
+                    continue
 
     def searchForPlaylist(self, playlist_title):
-        # Search for a specific playlist by its title.
-        for playlist in Playlist.playlists_database:
-            if playlist.playlist_title == playlist_title.upper():
-                print(f"Playlist {playlist_title.upper()} was found in the playlist database.")
-            else:
-                if playlist == Playlist.playlists_database[-1]:
-                    print(f"Playlist {playlist_title.upper()} was not found in the playlist database.")
+            """
+            Search for a specific playlist by its title.
+
+            Parameters:
+            - playlist_title (str): The title of the playlist to search for.
+
+            Returns:
+            None
+            """
+            for playlist in Playlist.playlists_database:
+                if playlist.playlist_title == playlist_title.upper():
+                    print(f"Playlist {playlist_title.upper()} was found in the playlist database.")
                 else:
-                    continue   
+                    if playlist == Playlist.playlists_database[-1]:
+                        print(f"Playlist {playlist_title.upper()} was not found in the playlist database.")
+                    else:
+                        continue
     
 
 
