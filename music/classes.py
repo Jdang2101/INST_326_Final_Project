@@ -264,16 +264,16 @@ class Recommender:
         Parameters:
         - genre (str): The genre of a song to be recommended.
         """
-        recomendations = []
+        recommendations = []
 
         for playlist in Playlist.playlists_database:
             for song in playlist.songs:
                 if song.genre == genre.upper():
-                    recomendations.append(song)
+                    recommendations.append(song)
                     break
                 else:
                     continue
-        return recomendations
+        return recommendations
 
     def recommendSongsBasedOnArtist(self, artist):
         """
@@ -282,16 +282,16 @@ class Recommender:
         Parameters:
         - artist (str): The artist of a song to be recommended.
         """
-        recomendations = []
+        recommendations = []
 
         for playlist in Playlist.playlists_database:
             for song in playlist.songs:
                 if song.genre == artist.upper():
-                    recomendations.append(song)
+                    recommendations.append(song)
                     break
                 else:
                     continue
-        return recomendations
+        return recommendations
     
     def recomendSongsFromSongsDatabaseBasedOnGenre(self, genre):
         """
@@ -300,15 +300,15 @@ class Recommender:
         Parameters:
         - genre (str): The genre of a song to be recommended.
         """
-        recomendations = []
+        recommendations = []
 
         for song in Song.songs_database:
             if song.genre == genre.upper():
-                recomendations.append(song)
+                recommendations.append(song)
                 break
             else:
                 continue
-        return recomendations
+        return recommendations
     
     def recomendSongsFromSongsDatabaseBasedOnArtist(self, artist):
         """
@@ -317,12 +317,12 @@ class Recommender:
         Parameters:
         - artist (str): The artist of a song to be recommended.
         """
-        recomendations = []
+        recommendations = []
 
         for song in Song.songs_database:
             if song.genre == artist.upper():
-                recomendations.append(song)
+                recommendations.append(song)
                 break
             else:
                 continue
-        return recomendations
+        return recommendations
