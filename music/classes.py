@@ -258,7 +258,12 @@ class Recommender:
         self.database = database
 
     def recommendSongsBasedOnGenre(self, genre):
-        # Recommend songs based on the given genre.
+        """
+        Recommend songs based on the given genre.
+
+        Parameters:
+        - genre (str): The genre of a song to be recommended.
+        """
         recomendations = []
 
         for playlist in Playlist.playlists_database:
@@ -271,7 +276,12 @@ class Recommender:
         return recomendations
 
     def recommendSongsBasedOnArtist(self, artist):
-        # Recommend songs based on the given artist.
+        """
+        Recommend songs based on the given artist.
+
+        Parameters:
+        - artist (str): The artist of a song to be recommended.
+        """
         recomendations = []
 
         for playlist in Playlist.playlists_database:
@@ -284,7 +294,12 @@ class Recommender:
         return recomendations
     
     def recomendSongsFromSongsDatabaseBasedOnGenre(self, genre):
-        # Recommend songs based on the given genre.
+        """
+        Recommend songs based on the given genre.
+
+        Parameters:
+        - genre (str): The genre of a song to be recommended.
+        """
         recomendations = []
 
         for song in Song.songs_database:
@@ -296,7 +311,12 @@ class Recommender:
         return recomendations
     
     def recomendSongsFromSongsDatabaseBasedOnArtist(self, artist):
-         # Recommend songs based on the given artist.
+        """
+        Recommend songs based on the given artist.
+
+        Parameters:
+        - artist (str): The artist of a song to be recommended.
+        """
         recomendations = []
 
         for song in Song.songs_database:
