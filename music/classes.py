@@ -20,35 +20,32 @@ class Playlist:
         - songs (list of dictionaries containing song details: title, artist, genre)
 
     Methods:
-        - createPlaylist(title):
-            Create a new playlist with a given title.
-
-        - addSongToPlaylist(title, artist, genre):
-            Add a song to a selected playlist with the given details.
-
-        - deleteSongFromPlaylist(title, artist):
-            Delete a song from the selected playlist.
-
-        - addSongToDatabase(title, artist, genre):
-            Add a song to the global database.
-
-        - searchForPlaylist(title):
-            Search for a specific playlist by its title.
+        - createPlaylist(playlist_title):
+            Create a new playlist with a given title. 
 
         - viewListOfPlaylists():
             Display the list of created playlists.
 
-        - viewSongsInPlaylist(title):
-            View the list of songs in a selected playlist along with their details.
-
-        - selectPlaylist(playlist_index):
+        - selectPlaylist(selected_playlist):
             Select a playlist to perform actions on.
 
-        - addSongToSelectedPlaylist(title, artist, genre):
+        - viewSongsInPlaylist(selected_playlist):
+            View the list of songs in a selected playlist along with their details.
+
+        - addSongToSelectedPlaylist(title, artist, genre, selected_playlist):
             Add a song to the selected playlist.
 
-        - deleteSongFromSelectedPlaylist(title, artist):
+        - deleteSongFromSelectedPlaylist(title, artist, selected_playlist):
             Delete a song from the selected playlist.
+
+        - addSongToDatabase(title, artist, genre):
+            Add a song to the global songs database.
+
+        - deleteSongFromDatabase(title, artist)
+            Delete a song from the global songs database
+
+        - searchForPlaylist(playlist_title):
+            Search for a specific playlist by its title.
     """
     playlists_database = []
     
@@ -128,7 +125,7 @@ class Playlist:
                         print("--------------------")
                     break
 
-    def addSongToPlaylist(self, title, artist, genre, selected_playlist):
+    def addSongToSelectedPlaylist(self, title, artist, genre, selected_playlist):
             """
             Add a song to a selected playlist with the given details.
 
@@ -152,7 +149,7 @@ class Playlist:
                     print(f"The Song '{title.upper()}' by {artist.upper()} has been added to playlist '{playlist.playlist_title}'.")
 
 
-    def deleteSongFromPlaylist(self, title, artist, selected_playlist):
+    def deleteSongFromSelectedPlaylist(self, title, artist, selected_playlist):
             """
             Delete a song from the selected playlist.
 
@@ -240,12 +237,20 @@ class Recommender:
     Methods:
         - recommendSongsBasedOnGenre(genre)
         - recommendSongsBasedOnArtist(artist)
+        - recomendSongsFromSongsDatabaseBasedOnGenre(genre)
+        - recomendSongsFromSongsDatabaseBasedOnArtist(artist)
 
     Actions:
         - recommendSongsBasedOnGenre(genre):
             Recommend songs based on the given genre.
 
         - recommendSongsBasedOnArtist(artist):
+            Recommend songs based on the given artist.
+
+        - recomendSongsFromSongsDatabaseBasedOnGenre(genre):
+            Recommend songs based on the given genre.
+
+        - recomendSongsFromSongsDatabaseBasedOnArtist(artist):
             Recommend songs based on the given artist.
     """
             
@@ -254,8 +259,50 @@ class Recommender:
 
     def recommendSongsBasedOnGenre(self, genre):
         # Recommend songs based on the given genre.
-        pass
+        recomendations = []
+
+        for playlist in Playlist.playlists_database:
+            for song in playlist.songs:
+                if song.genre == genre.upper():
+                    recomendations.append(song)
+                    break
+                else:
+                    continue
+        return recomendations
 
     def recommendSongsBasedOnArtist(self, artist):
         # Recommend songs based on the given artist.
-        pass
+        recomendations = []
+
+        for playlist in Playlist.playlists_database:
+            for song in playlist.songs:
+                if song.genre == artist.upper():
+                    recomendations.append(song)
+                    break
+                else:
+                    continue
+        return recomendations
+    
+    def recomendSongsFromSongsDatabaseBasedOnGenre(self, genre):
+        # Recommend songs based on the given genre.
+        recomendations = []
+
+        for song in Song.songs_database:
+            if song.genre == genre.upper():
+                recomendations.append(song)
+                break
+            else:
+                continue
+        return recomendations
+    
+    def recomendSongsFromSongsDatabaseBasedOnArtist(self, artist):
+         # Recommend songs based on the given artist.
+        recomendations = []
+
+        for song in Song.songs_database:
+            if song.genre == artist.upper():
+                recomendations.append(song)
+                break
+            else:
+                continue
+        return recomendations
