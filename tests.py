@@ -26,3 +26,6 @@ class TestPlaylist(unittest.TestCase):
                 self.assertEqual(playlist.playlist_title, "TEST2")
             else:
                 continue
+
+if __name__ == '__main__':
+    unittest.main()
