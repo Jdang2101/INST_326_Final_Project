@@ -17,17 +17,38 @@ app = Flask(__name__)
 # Homepage
 @app.route("/")
 def index():
+    """
+    The index page of the application
+    
+    Returns:
+        render_template: The index.html template, with the playlists passed in
+    """
     return render_template("index.html", title="Home", playlists=Playlist.playlists_database)
 
 
 # Playlist Page
 @app.route("/playlists")
 def playlists_page():
+    """
+    The playlists page of the application
+    
+    Returns:
+        render_template: The playlists.html template, with the playlists passed in
+    """
     return render_template("playlists.html", title="Playlists", playlists=Playlist.playlists_database)
 
 # Playlist View Page
 @app.route("/playlists/<playlist_title>")
 def playlist_view_page(playlist_title):
+    """
+    The playlist view page of the application. Gets the playlist from the database using its title and passes it to the view_playlist.html template
+    
+    Args:
+        playlist_title (str): The title of the playlist to view
+        
+    Returns:
+        render_template: The view_playlist.html template, with the playlist passed in
+    """
     # get the playlist from the database
     for playlist in Playlist.playlists_database:
             if str(playlist.playlist_title) == str(playlist_title):
@@ -38,6 +59,12 @@ def playlist_view_page(playlist_title):
 # Playlist Creation Page
 @app.route("/playlists/create", methods=["GET", "POST"])
 def playlists_create_page():
+    """
+    The playlist creation page of the application. If the request method is GET, return the create_playlist.html template. If the request method is POST, handle the POST request and create the playlist
+    
+    Returns:
+        render_template: The create_playlist.html template, with the title passed in
+    """
     # Check if the request method is GET
     if request.method == 'GET':
         # If it is, return the create_playlist.html template
@@ -70,9 +97,16 @@ def playlists_create_page():
         return render_template("view_playlist.html", title=title, playlist=playlist)
 
 
-# Genres Page
+# recommendations Page
 @app.route("/recommend")
-def genres_page():
+def recommend_page():
+    """
+    The recommendations page of the application. Gets the recommendations from the Recommender class and passes it to the recommend.html template
+
+    Returns:
+        render_template: The recommend.html template, with the recommendations passed in
+    """
+
     return render_template("/recommend.html", title="Recommended Playlists")
 
 # 404 Page
