@@ -14,7 +14,7 @@ def test_1_for_createPlaylist():
             continue
     assert outcome == False
 
-def test_1_for_createPlaylist():
+def test_2_for_createPlaylist():
     outcome = False
     playlist1 = classes.Playlist("Ryan", "Playlist2")
     
